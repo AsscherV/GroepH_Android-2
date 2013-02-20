@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Currency Demo</string>
+    <string name="information">Click the button to get the currency in USD for 1EUR.</string>
+    <string name="request">Get Currency</string>
+
+</resources>
