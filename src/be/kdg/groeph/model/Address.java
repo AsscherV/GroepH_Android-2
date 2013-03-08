@@ -1,16 +1,22 @@
-package com.webcomrades.demo.model;
+package be.kdg.groeph.model;
 
+
+import be.kdg.groeph.model.Null.NullAddress;
+import be.kdg.groeph.model.Null.Nullable;
 
 import java.io.Serializable;
 
 
-public class Address implements Serializable {
+public class Address implements Nullable, Serializable {
 
     private int id;
 
     private String street;
+
     private String streetNumber;
+
     private String zipcode;
+
     private String city;
 
 
@@ -64,19 +70,22 @@ public class Address implements Serializable {
         this.city = city;
     }
 
+    @Override
+    public boolean isNull() {
+        return false;
+    }
 
-
-
+    public static Address INVALID_ADDRESS() {
+        return new NullAddress();
+    }
     @Override
     public boolean equals(Object obj) {
-        //todo aanpassen
         return super.equals(obj);
     }
 
 
     @Override
     public int hashCode() {
-        //todo aanpassen
         return super.hashCode();
     }
 

@@ -1,4 +1,4 @@
-package com.webcomrades.demo.model;
+package be.kdg.groeph;
 
 
 

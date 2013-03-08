@@ -1,12 +1,17 @@
-package com.webcomrades.demo.model;
+package be.kdg.groeph.model;
 
+
+import be.kdg.groeph.model.Null.NullUser;
+import be.kdg.groeph.model.Null.Nullable;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
-public class TripUser implements Serializable {
+public class TripUser implements Nullable, Serializable {
 
     private int id;
 
@@ -23,6 +28,8 @@ public class TripUser implements Serializable {
     private String email;
 
     private String password;
+
+    private String tempPassword;
 
     private String role;
 
@@ -42,11 +49,18 @@ public class TripUser implements Serializable {
 
     private boolean accountNonLocked;
 
+    private List<Trip> trips;
+
+    private List<Trip> invitedTrips = new ArrayList<Trip>();
+
     /*
-        @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+
+    @ManyToMany
     @Cascade({org.hibernate.annotations.CascadeType.SAVE_UPDATE})
-    private List<Trip> trips = new ArrayList<Car>();
-     */
+    @JoinColumn(name="id", nullable = true)
+    private List<Trip> confirmedTrips = new ArrayList<Trip>(); */
+
 
 
     public TripUser() {
@@ -63,6 +77,21 @@ public class TripUser implements Serializable {
         this.address = address;
         this.dateRegistered = dateRegistered;
         this.role = role;
+        trips = new ArrayList<Trip>();
+    }
+
+    public TripUser(String firstName, String lastName, Date dateOfBirth, String phoneNumber, char gender, String email, String password, String tempPassword, Address address, Date dateRegistered, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.dateRegistered = dateRegistered;
+        this.role = role;
+        this.tempPassword = tempPassword;
     }
 
     public int getId() {
@@ -83,6 +112,14 @@ public class TripUser implements Serializable {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public List<Trip> getInvitedTrips() {
+        return invitedTrips;
+    }
+
+    public void setInvitedTrips(List<Trip> invitedTrips) {
+        this.invitedTrips = invitedTrips;
     }
 
     public void setLastName(String lastName) {
@@ -191,10 +228,47 @@ public class TripUser implements Serializable {
         }
         return false;
     }
+    public List<Trip> getTrips() {
+        return trips;
+    }
 
+    public String getTempPassword() {
+        return tempPassword;
+    }
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
 
+    public void addTrip(Trip trip){
+        trip.setTripUser(this);
+        trips.add(trip);
+    }
 
+    public void addInvitedTrip(Trip trip){
+        invitedTrips.add(trip);
+    }
+    public void setTempPassword(String tempPassword) {
+        this.tempPassword = tempPassword;
+    }
 
+    /*
+    public List<Trip> getConfirmedTrips() {
+        return confirmedTrips;
+    }
+
+    public void setConfirmedTrips(List<Trip> confirmedTrips) {
+        this.confirmedTrips = confirmedTrips;
+    }
+
+    public void confirmParticipation(Trip trip){
+        confirmedTrips.add(trip);
+        invitedTrips.remove(trip);
+    }      */
+
+    @Override
+    public boolean isNull() {
+        return false;
+    }
 
     @Override
     public int hashCode() {
@@ -221,7 +295,7 @@ public class TripUser implements Serializable {
             dob = sdf.format(dateOfBirth);
             userdob = sdf.format(user.dateOfBirth);
         } catch (NullPointerException e) {
-            //TODO hier nog deftige exception message zetten...
+            System.out.println("Nullpointer: " + e.getMessage());
         }
 
         return !(firstName != null ? !firstName.equals(user.getFirstName()) : user.getFirstName() != null)
@@ -235,5 +309,7 @@ public class TripUser implements Serializable {
         return getFirstName() + " " + getLastName() + " ";
     }
 
-
+    public static TripUser INVALID_USER() {
+        return new NullUser();
+    }
 }
