@@ -5,9 +5,14 @@ import be.kdg.groeph.model.Null.NullTrip;
 import be.kdg.groeph.model.Null.Nullable;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Trip implements Nullable, Serializable {
 
@@ -122,6 +127,7 @@ public class Trip implements Nullable, Serializable {
     public static Trip INVALID_TRIP() {
         return new NullTrip();
     }
+
     public int getId() {
         return id;
     }
@@ -170,7 +176,7 @@ public class Trip implements Nullable, Serializable {
         this.tripUser = tripUser;
     }
 
-    public void addTripUser(TripUser tripUser){
+    public void addTripUser(TripUser tripUser) {
         tripUsers.add(tripUser);
     }
 
@@ -210,4 +216,16 @@ public class Trip implements Nullable, Serializable {
         tripUsers.remove(user);
     }
     */
+
+    @Override
+    public String toString() {
+
+
+       // DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+
+
+
+        return "START: " + sdf.format(startTime) + " END: " + sdf.format(endTime) + " TITLE: " + title;
+    }
 }

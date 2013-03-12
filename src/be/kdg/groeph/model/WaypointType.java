@@ -43,4 +43,13 @@ public class WaypointType {
     public void setWaypoints(List<Waypoint> waypoints) {
         this.waypoints = waypoints;
     }
+
+    @Override
+    public String toString() {
+        return "WaypointType{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", waypoints=" + waypoints +
+                '}';
+    }
 }

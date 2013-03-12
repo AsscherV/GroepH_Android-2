@@ -5,15 +5,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+import android.widget.*;
 import be.kdg.groeph.controllers.NetworkController;
 import be.kdg.groeph.model.Trip;
 import be.kdg.groeph.model.TripUser;
 import com.webcomrades.demo.concurrency.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,15 +23,32 @@ import java.util.List;
 public class PublicTripsActivity extends Activity {
     private final String path = "/rest/publicTrips"; // url path: value for 1EUR in USD.
 
-
-
+    public List<Trip> publicTrips;
+    ListView lv_publiceTrips;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.publictrips);
 
+        getData(path);
+        lv_publiceTrips = (ListView) findViewById(R.id.publicTripsListView);
+        lv_publiceTrips.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Trip selectedTrip = publicTrips.get((int) l);
+                Intent intent = new Intent(getApplicationContext(), publicTripMenuActivity.class);
+
+
+                intent.putExtra("PublicTrip", selectedTrip);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
         initViews();
+
     }
 
     private void initViews() {
@@ -48,7 +63,6 @@ public class PublicTripsActivity extends Activity {
             @Override
             protected void onPreExecute() {
 
-
                 super.onPreExecute();
             }
 
@@ -62,29 +76,21 @@ public class PublicTripsActivity extends Activity {
                     exception = e;
                 }
 
+                publicTrips = trips;
                 return trips;
             }
 
             @Override
             protected void onPostExecute(List<Trip> result) {
 
-                /*
-                if (exception == null && result != null) {
+                //TODO: add the data to the list
 
-                    Intent i = new Intent(getApplicationContext(), MenuActivity.class);
-                    startActivity(i);
-                    finish();
-                    //TODO: Add the cookie to a session I guess
+                lv_publiceTrips = (ListView) findViewById(R.id.publicTripsListView);
 
+                Trip[] lv_arr = {};
+                lv_arr = publicTrips.toArray(new Trip[0]);
+                lv_publiceTrips.setAdapter(new ArrayAdapter<Trip>(PublicTripsActivity.this, android.R.layout.simple_list_item_1, lv_arr));
 
-                } else if (result == null) {
-                    Toast.makeText(getApplicationContext(), "Wrong credentials", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Oops. Something went wrong!", Toast.LENGTH_SHORT).show();
-
-                }
-                progressbar.setVisibility(View.GONE);
-                  */
 
             }
 

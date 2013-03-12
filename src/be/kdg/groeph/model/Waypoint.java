@@ -99,4 +99,17 @@ public class Waypoint implements Nullable, Serializable {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    @Override
+    public String toString() {
+        return "Waypoint{" +
+                "id=" + id +
+                ", label='" + label + '\'' +
+                ", description='" + description + '\'' +
+                ", lattitude=" + lattitude +
+                ", longitude=" + longitude +
+                ", waypointType=" + waypointType +
+                ", trip=" + trip +
+                '}';
+    }
 }

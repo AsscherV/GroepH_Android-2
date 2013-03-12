@@ -61,4 +61,13 @@ public class Label implements Serializable {
     public int hashCode() {
         return name.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return "Label{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", trip=" + trip +
+                '}';
+    }
 }

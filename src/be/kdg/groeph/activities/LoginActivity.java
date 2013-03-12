@@ -79,6 +79,8 @@ public class LoginActivity extends Activity {
                 if (exception == null && result != null) {
 
                     Intent i = new Intent(getApplicationContext(), MenuActivity.class);
+
+
                     startActivity(i);
                     finish();
                     //TODO: Add the cookie to a session I guess

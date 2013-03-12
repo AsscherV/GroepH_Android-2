@@ -75,4 +75,5 @@ public class TripType implements Serializable, Nullable {
 
         return !(type != null ? !type.equals(tripType.type) : tripType.type != null);
     }
+
 }

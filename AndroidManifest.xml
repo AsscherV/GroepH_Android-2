@@ -14,7 +14,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light" >
+        android:theme="@android:style/Theme.Holo" >
         <activity
             android:name="be.kdg.groeph.activities.LoginActivity"
             android:label="@string/app_name" >
@@ -26,6 +26,7 @@
         </activity>
         <activity android:name="be.kdg.groeph.activities.MenuActivity" android:label="@string/app_name"/>
         <activity android:name="be.kdg.groeph.activities.PublicTripsActivity" android:label="@string/app_name"/>
+        <activity android:name="be.kdg.groeph.activities.publicTripMenuActivity" android:label="@string/app_name"/>
     </application>
 
 </manifest>

@@ -58,4 +58,15 @@ public class Cost {
     public void setTripUser(TripUser tripUser) {
         this.tripUser = tripUser;
     }
+
+    @Override
+    public String toString() {
+        return "Cost{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", costValue=" + costValue +
+                ", tripUser=" + tripUser +
+                ", trip=" + trip +
+                '}';
+    }
 }
